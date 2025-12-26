@@ -12,15 +12,18 @@ public class McpTools {
     @McpTool(name = "getEmployee",
             description = "Get information about a given employee")
     public Employee getEmployee(@McpArg(description = "The employee name") String name) {
-        return new Employee(name, 12300, 4);
+        return getAllEmployees().stream()
+                .filter(e -> e.name().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
     }
     @McpTool(description = "Get All Employees")
     public List<Employee> getAllEmployees() {
         return List.of(
-                new Employee("Meriem", 12300, 4),
-                new Employee("Oumaima", 34000, 1),
-                new  Employee("Imane", 23000, 10)
+                new Employee("Salma Bourizi", 13500, 7.0/12.0),
+                new Employee("employee", 12300, 4.0),
+                new Employee("Salma", 16000, 2.0)
         );
     }
 }
-record Employee(String name, double salary, int seniority){}
+record Employee(String name, double salary, double seniority){}
